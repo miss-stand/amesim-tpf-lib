@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amesim 两相流库 · 元器件速查库 — 学生-叶禹辉</title>
+<style>
+:root{
+  --navy:#0c2340;
+  --navy-2:#123a63;
+  --teal:#159a8a;
+  --teal-l:#e6f6f3;
+  --amber:#e9a13b;
+  --ink:#1b2b45;
+  --muted:#5b6b82;
+  --bg:#f2f6fb;
+  --card:#ffffff;
+  --line:#dfe7f0;
+  --radius:14px;
+  --shadow:0 4px 16px rgba(12,35,64,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+}
+/* ===== Top bar ===== */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  background:linear-gradient(90deg,var(--navy),var(--navy-2));
+  color:#fff;padding:0 20px;height:64px;
+  display:flex;align-items:center;gap:16px;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+.topbar .logo{display:flex;align-items:center;gap:10px;min-width:0}
+.topbar .logo svg{flex:none}
+.topbar .logo b{font-size:17px;white-space:nowrap}
+.topbar .logo span{font-size:12px;color:#9fc0e8;white-space:nowrap}
+.topbar .me{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:13px;color:#cfe3fa}
+.topbar .me .tag{background:rgba(255,255,255,.12);padding:4px 10px;border-radius:20px;white-space:nowrap}
+.topbar .me .tag b{color:var(--amber)}
+
+/* ===== Layout ===== */
+.wrap{display:flex;padding-top:64px}
+.side{
+  position:fixed;top:64px;bottom:0;left:0;width:236px;overflow-y:auto;
+  background:#0f2a4a;color:#bcd6f2;padding:18px 0 40px;z-index:40;
+}
+.side::-webkit-scrollbar{width:6px}
+.side::-webkit-scrollbar-thumb{background:#33557f;border-radius:3px}
+.side h4{font-size:11px;letter-spacing:2px;color:#6f8db3;padding:10px 20px 6px;text-transform:uppercase}
+.side a{
+  display:block;color:#bcd6f2;text-decoration:none;font-size:14px;
+  padding:7px 20px;border-left:3px solid transparent;
+}
+.side a:hover{background:#123a63;color:#fff}
+.side a.active{background:#123a63;color:#fff;border-left-color:var(--teal)}
+.side a small{display:block;font-size:11px;color:#6f8db3;margin-top:1px}
+.main{margin-left:236px;flex:1;min-width:0}
+.inner{max-width:1180px;margin:0 auto;padding:28px 32px 80px}
+
+section{margin-bottom:52px;scroll-margin-top:84px}
+.sect-title{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.sect-title .dot{width:10px;height:34px;border-radius:3px;background:var(--teal)}
+.sect-title h2{font-size:24px;color:var(--navy);letter-spacing:.5px}
+.sect-title .en{font-size:12px;color:var(--muted);letter-spacing:1px;margin-top:2px}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  background:linear-gradient(120deg,#0c2340 0%,#123a63 55%,#1d5b8a 100%);
+  color:#fff;padding:44px 40px 36px;box-shadow:var(--shadow);
+}
+.hero .img{position:absolute;inset:0;opacity:.22;object-fit:cover;width:100%;height:100%}
+.hero .inner-txt{position:relative;z-index:1}
+.hero .kicker{display:inline-block;font-size:12px;letter-spacing:3px;background:rgba(255,255,255,.14);padding:5px 14px;border-radius:20px;margin-bottom:18px}
+.hero h1{font-size:34px;line-height:1.3;margin-bottom:12px}
+.hero h1 em{color:var(--amber);font-style:normal}
+.hero p.sub{color:#bcd6f2;font-size:15px;margin-bottom:20px}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:24px}
+.hero .stats div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:8px 16px;border-radius:10px;font-size:13px}
+.hero .stats b{font-size:18px;color:var(--amber)}
+.hero .who{display:flex;flex-wrap:wrap;gap:10px}
+.hero .who span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:6px 12px;border-radius:8px;font-size:13px}
+.hero .who b{color:var(--amber);font-weight:600}
+.hero .teacher{font-size:12px;color:#9fc0e8;margin-top:14px}
+
+/* ===== Generic cards / blocks ===== */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:1100px){.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.blk{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.blk h4{font-size:16px;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.blk h4 .no{font-size:11px;background:var(--teal);color:#fff;border-radius:6px;padding:2px 8px;flex:none}
+.blk p{font-size:13.5px;color:#3d4d66}
+.blk p+p{margin-top:8px}
+.blk .hl{color:var(--teal);font-weight:600}
+.blk .warn{color:#b95a1e;font-weight:600}
+.blk ul{margin:8px 0 0 18px;font-size:13.5px;color:#3d4d66}
+.blk li{margin-bottom:6px}
+.blk .tagline{margin-top:10px;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.blk .tagline b{color:var(--navy)}
+
+/* ===== Category blocks & cards ===== */
+.cat-head{
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:linear-gradient(90deg,var(--navy),var(--navy-2));
+  color:#fff;border-radius:var(--radius);padding:22px 26px;margin-bottom:18px;
+}
+.cat-head .no{font-size:30px;font-weight:700;color:var(--amber);line-height:1}
+.cat-head .names h3{font-size:21px;letter-spacing:.5px}
+.cat-head .names p{font-size:13px;color:#9fc0e8;margin-top:2px}
+.cat-head .desc{margin-left:auto;max-width:560px;font-size:13px;color:#cfe3fa}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;
+  border-top:4px solid var(--teal);
+}
+.card h5{font-size:16px;color:var(--navy);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card h5 small{font-weight:400;color:var(--muted);font-size:12px}
+.subs{display:flex;flex-wrap:wrap;gap:6px}
+.subs i{font-style:normal;background:var(--teal-l);color:#0c7a6d;border:1px solid #bfe5df;font-size:11.5px;padding:2px 8px;border-radius:6px;font-family:Consolas,Menlo,monospace}
+.card .sec{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;font-weight:600}
+.card .cnt{font-size:13.5px;color:#3d4d66}
+.card .cnt ul{margin:6px 0 0 16px}
+.card .cnt li{margin-bottom:4px}
+.card .cnt table{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}
+.card .cnt th,.card .cnt td{border:1px solid var(--line);padding:4px 8px;text-align:left}
+.card .cnt th{background:var(--bg);color:var(--navy);white-space:nowrap}
+.usage{font-size:13px;background:#fbf4e8;border-left:3px solid var(--amber);padding:8px 12px;border-radius:0 8px 8px 0;color:#6b4a16}
+.usage b{color:#8a5a10}
+.card .foot{margin-top:auto;font-size:11px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.cimg{display:flex;align-items:center;justify-content:center;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px;min-height:96px}
+.cimg img{max-width:100%;max-height:86px;object-fit:contain;user-select:none}
+
+/* ===== Search & filter ===== */
+.toolbar{position:sticky;top:64px;z-index:30;background:rgba(242,246,251,.94);backdrop-filter:blur(6px);padding:14px 0;margin-bottom:18px}
+.searchbox{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--line);border-radius:12px;padding:4px 14px;max-width:480px;transition:.2s}
+.searchbox:focus-within{border-color:var(--teal);box-shadow:0 0 0 3px rgba(21,154,138,.15)}
+.searchbox svg{flex:none;color:var(--muted)}
+.searchbox input{border:none;outline:none;flex:1;padding:8px 0;font-size:15px;background:transparent;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{
+  border:1px solid var(--line);background:#fff;color:#33557f;border-radius:20px;
+  padding:5px 14px;font-size:13px;cursor:pointer;user-select:none;transition:.15s;
+}
+.chip:hover{border-color:var(--teal)}
+.chip.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+#resultInfo{font-size:13px;color:var(--muted);margin-top:10px}
+#resultInfo b{color:var(--teal)}
+
+/* ===== Tables (library overview / cheat sheet) ===== */
+.tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:13.5px}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:11px 16px;font-weight:600}
+.tbl td{padding:10px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:nth-child(even) td{background:#f8fafc}
+.tbl td b{color:var(--navy)}
+.tbl .c-teal{color:var(--teal);font-weight:600}
+.tbl .c-amber{color:#a05e0e;font-weight:600}
+.tbl td code{background:var(--teal-l);color:#0c7a6d;padding:1px 6px;border-radius:5px;font-family:Consolas,Menlo,monospace;font-size:12px}
+
+/* ===== Pitfalls ===== */
+.pit{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.pit h5{font-size:15px;color:var(--navy);display:flex;gap:10px;align-items:center}
+.pit h5 .num{flex:none;width:26px;height:26px;border-radius:8px;background:#f8e9d8;color:#a05e0e;display:grid;place-items:center;font-size:13px;font-weight:700}
+.pit .sym{font-size:13px;color:#b95a1e;margin-top:6px}
+.pit .sol{font-size:13px;color:#0c7a6d;margin-top:4px}
+.pit .sol b{color:#0c7a6d}
+.motto{margin-top:18px;background:linear-gradient(90deg,#fbf4e8,#fff);border:1px dashed #e5c89a;border-radius:var(--radius);padding:16px 20px;font-size:14px;color:#6b4a16}
+.motto b{color:#8a5a10}
+
+footer{color:var(--muted);font-size:13px;text-align:center;border-top:1px solid var(--line);padding-top:24px;margin-top:24px}
+footer b{color:var(--navy)}
+#topBtn{
+  position:fixed;right:22px;bottom:22px;z-index:40;width:44px;height:44px;border-radius:50%;
+  background:var(--navy);color:#fff;border:none;cursor:pointer;box-shadow:var(--shadow);
+  font-size:18px;display:none;
+}
+#topBtn:hover{background:var(--navy-2)}
+.empty{display:none;text-align:center;padding:60px 0;color:var(--muted);font-size:15px}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">
+    <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#e9a13b" stroke-width="2.5"/><circle cx="16" cy="16" r="6" fill="#159a8a"/><path d="M16 2v6M16 24v6M2 16h6M24 16h6" stroke="#e9a13b" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <div>
+      <b>Amesim 两相流库 · 元器件速查库</b><br>
+      <span>Simcenter Amesim Two-Phase Flow Library</span>
+    </div>
+  </div>
+  <div class="me">
+    <span class="tag">学生-<b>叶禹辉</b></span>
+    <span class="tag">学号 <b>2507303237</b></span>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="side">
+    <h4>目录</h4>
+    <a href="#cover">首页<span><small>封面</small></span></a>
+    <a href="#intro">为什么要用两相流库<span><small>实操前置</small></span></a>
+    <a href="#theory">理论约定<span><small>介质 · 流动 · 五态</small></span></a>
+    <a href="#overview">库全貌<span><small>74 个元件 · 两套分类</small></span></a>
+    <a href="#library">元器件速查库<span><small>七大分类 30+ 图解</small></span></a>
+    <a href="#cheatsheet">速查表<span><small>理论 → TPF 元件</small></span></a>
+    <a href="#pitfalls">避坑指南<span><small>新手七个踩坑点</small></span></a>
+    <a href="#summary">课时小结<span><small>小结</small></span></a>
+  </nav>
+
+  <main class="main">
+    <div class="inner">
+
+      <!-- ======== 首页 ======== -->
+      <section id="cover">
+        <div class="hero">
+          <img class="img" alt="" src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=industrial%20refrigeration%20cycle%20schematic%20diagram%2C%20compressor%20condenser%20expansion%20valve%20evaporator%20connected%20with%20pipes%2C%20cool%20blue%20and%20white%20technical%20illustration%2C%20clean%20flat%20vector%20style%2C%20dark%20navy%20blue%20background">
+          <div class="inner-txt">
+            <span class="kicker">两相流库元件图鉴 · 课时七 学习整理</span>
+            <h1>Simcenter Amesim<br><em>两相流库</em>元器件速查库</h1>
+            <p class="sub">基于《Amesim 两相流库元件图鉴 · 课时七》课件整理 · 全库 74 个元件 · 七大分类 · 精选 30+ 图解</p>
+            <div class="stats">
+              <div>全库 <b>74</b> 个元件</div>
+              <div>分类 <b>7</b> 大库类</div>
+              <div>图解 <b>30+</b> 精选</div>
+            </div>
+            <div class="who">
+              <span>学生-<b>叶禹辉</b></span>
+              <span>学号 <b>2507303237</b></span>
+              <span>厦门海洋职业技术学院</span>
+              <span>海洋工程学院</span>
+              <span>海洋工程装备技术专业</span>
+            </div>
+            <p class="teacher">整理者：学生-叶禹辉 ｜ 厦门海洋职业技术学院 · 海洋工程学院 · 海洋工程装备技术专业</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== 导览 ======== -->
+      <section id="intro">
+        <div class="sect-title"><div class="dot"></div><div><h2>为什么要用「两相流库」</h2><div class="en">实操前置 · WHY TWO-PHASE FLOW LIBRARY</div></div></div>
+        <div class="grid2">
+          <div class="blk"><h4><span class="no">01</span>制冷剂始终「气液共存」</h4>
+            <p>课时 2 学过：制冷剂在蒸发器里汽化、冷凝器里液化，管路中大部分区段是<span class="hl">气液两相混合流动</span>——这正是「两相流」。</p></div>
+          <div class="blk"><h4><span class="no">02</span>两相流动必须多算一个变量</h4>
+            <p>除了压力、温度、流量，两相流还要追踪<span class="hl">干度（quality，气态占比）</span>和焓的分布——普通单相流体库算不了。</p></div>
+          <div class="blk"><h4><span class="no">03</span>TPF 库 = 专为两相系统而生</h4>
+            <p>Simcenter Amesim 的 <span class="hl">Two-Phase Flow 库</span>内置 R134a 等工质物性，元件覆盖压缩、换热、节流、管路全链条，是搭建船舶制冷模型的主战场。</p></div>
+          <div class="blk"><h4><span class="no">04</span>全库 74 个元件，常用不过十几个</h4>
+            <p>实船除四大件外，还有<span class="hl">油分离器、储液器、气液分离器、电磁阀、压力调节阀</span>等辅助部件——先认全，再谈取舍。</p></div>
+        </div>
+        <div class="blk" style="margin-top:16px;background:linear-gradient(90deg,#fbf4e8,#fff);border-color:#e5c89a">
+          <h4>比喻</h4>
+          <p>压缩机是制冷系统的「心脏」，制冷剂是「血液循环」——TPF 库就是为这颗心脏和这条血管而建的。课时 2 的「理论真身」，今天起认它的「元件替身」。</p>
+        </div>
+      </section>
+
+      <!-- ======== 理论约定 ======== -->
+      <section id="theory">
+        <div class="sect-title"><div class="dot"></div><div><h2>建模前必读 · 理论约定</h2><div class="en">MEDIUM &amp; FLOW ASSUMPTIONS · HOMOGENEOUS MODEL &amp; FIVE STATES</div></div></div>
+
+        <h3 style="color:var(--navy);margin-bottom:12px;font-size:17px">介质与流动：决定能算什么（7 条假设）</h3>
+        <div class="grid3">
+          <div class="blk"><h4><span class="no">①</span>内部只算制冷剂</h4>
+            <p>管内流动的就是制冷剂（本课 R134a），润滑油、不凝性气体不单独建模。</p></div>
+          <div class="blk"><h4><span class="no">②</span>外部只认湿空气/干空气</h4>
+            <p>管外换热介质固定为空气——这是「Moist Air 湿空气」独立成类的原因。海水冷却需另用其他库处理。</p></div>
+          <div class="blk"><h4><span class="no">③</span>内部流动一维</h4>
+            <p>只沿管长方向求解，截面视为均匀——不计算管内速度分布与径向温差。</p></div>
+          <div class="blk"><h4><span class="no">④</span>不考虑重力</h4>
+            <p>忽略重力压降与气液分层。竖直高落差管路、船舶摇摆工况的重力效应，结果偏乐观。</p></div>
+          <div class="blk"><h4><span class="no">⑤</span>外部流动零维</h4>
+            <p>外部空气侧按集中参数处理，只关心进口质量流量及其分配，不求解外部流场。</p></div>
+          <div class="blk"><h4><span class="no">⑥</span>均质模型：气液同速、同温</h4>
+            <p>不必分别求解气相与液相的动量、能量方程，只需一组<span class="hl">平均物性</span>的方程。这是 TPF 库求解快、易收敛的根本原因。</p>
+            <p class="tagline"><b>代价：</b>无法反映滑移损失、相间传热滞后；高干度、高流速工况误差增大。</p></div>
+        </div>
+
+        <h3 style="color:var(--navy);margin:26px 0 12px;font-size:17px">五态分区：物性按状态调用</h3>
+        <div class="blk">
+          <p>库内<span class="hl">任意一点</span>，Amesim 先判断它落在哪个状态区，再调用对应物性公式。状态区判断错，物性就错——这是仿真报错「查不到物性」的常见根源。</p>
+          <p style="margin-top:12px"><b>制冷剂状态区：</b></p>
+          <table class="tbl" style="margin-top:10px">
+            <tr><th>过冷液</th><th>饱和液</th><th>两相</th><th>饱和气</th><th>过热气</th><th>超临界</th></tr>
+            <tr><td>Subcooled</td><td>Sat. liquid</td><td>Two-phase</td><td>Sat. vapor</td><td>Superheated</td><td>Supercritical</td></tr>
+          </table>
+          <p style="margin-top:12px" class="tagline"><b>一句话：</b>TPF 库把管内制冷剂当成「一维、无重力、气液同速同温的均质流体」，再按它落在哪种状态区调用物性——这就是整个库能算、且算得快的全部底气。</p>
+        </div>
+        <div class="blk" style="margin-top:14px;background:#fff7ec;border-color:#e5c89a">
+          <h4>船舶场景的两条提醒</h4>
+          <ul>
+            <li><b>外部只认空气</b> ⇒ 船舶海水冷却的冷凝器，海水侧需用 Amesim 其他库（如 Hydraulic / Thermal）配合建模。</li>
+            <li><b>一维且无重力</b> ⇒ 长立管、船舶纵横摇引起的液位与压降变化，本库不予体现。</li>
+          </ul>
+          <p style="margin-top:10px" class="tagline"><b>超出假设边界怎么办？</b>不是不能用，而是要<span class="warn">知道误差来自哪里、在报告里写清楚</span>。工程仿真的专业度，恰恰体现在对假设边界的交代上。</p>
+        </div>
+      </section>
+
+      <!-- ======== 库全貌 ======== -->
+      <section id="overview">
+        <div class="sect-title"><div class="dot"></div><div><h2>库全貌：74 个元件与两套分类口径</h2><div class="en">LIBRARY OVERVIEW</div></div></div>
+        <div class="grid2">
+          <div class="blk">
+            <h4>常见教程口径 · 6 大类</h4>
+            <p style="font-size:12.5px;color:var(--muted);margin-bottom:10px">旧版软件/网络课件多按此讲，中文命名</p>
+            <table class="tbl">
+              <tr><th>教程大类</th><th>对应库类</th></tr>
+              <tr><td>1. 流体源头、节点与传感器组件</td><td class="c-teal">⇒ 1·2</td></tr>
+              <tr><td>2. 管道与阀门控制组件</td><td class="c-teal">⇒ 3</td></tr>
+              <tr><td>3. 管道容器与储液器组件</td><td class="c-teal">⇒ 2</td></tr>
+              <tr><td>4. 泵与压缩机相关组件</td><td class="c-teal">⇒ 4</td></tr>
+              <tr><td>5. 湿空气相关组件</td><td class="c-teal">⇒ 6</td></tr>
+              <tr><td>6. 热交换组件与其他不常见组件</td><td class="c-teal">⇒ 5·7</td></tr>
+            </table>
+          </div>
+          <div class="blk">
+            <h4>Amesim 2020.1 库树 · 7 类</h4>
+            <p style="font-size:12.5px;color:var(--muted);margin-bottom:10px">实验室软件的实际界面，英文命名</p>
+            <table class="tbl">
+              <tr><th>库类</th><th>中文</th></tr>
+              <tr><td>1. Sources, Sensors</td><td>源与传感器</td></tr>
+              <tr><td>2. Fluids, Nodes, Volumes</td><td>工质 · 节点 · 容积</td></tr>
+              <tr><td>3. Frictions, Pipes, Control Valves</td><td>摩阻 · 管路 · 阀</td></tr>
+              <tr><td>4. Compressors, Turbine and Pump</td><td>压缩机 · 透平 · 泵</td></tr>
+              <tr><td>5. Heat Exchangers</td><td>换热器</td></tr>
+              <tr><td>6. Moist Air</td><td>湿空气</td></tr>
+              <tr><td>7. Component Design</td><td>元件设计</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="blk" style="margin-top:16px">
+          <p><b>记住一句话：</b>课件/教程里的「6 大类」和软件里的「7 类」是<span class="hl">同一套 74 个元件</span>，只是切分方式不同。上课、作业、实操一律以<span class="hl">软件库树（右列）</span>为准；看外部教程时按此表对号入座。</p>
+        </div>
+      </section>
+
+      <!-- ======== 速查库 ======== -->
+      <section id="library">
+        <div class="sect-title"><div class="dot"></div><div><h2>元器件速查库</h2><div class="en">COMPONENT QUICK REFERENCE · SEVEN CATEGORIES</div></div></div>
+
+        <div class="toolbar">
+          <div class="searchbox">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="search" type="text" placeholder="搜索元件名称 / 模型编号 / 关键词，如：压缩机、TPFP003、节流…">
+          </div>
+          <div class="chips" id="chips"></div>
+          <div id="resultInfo"></div>
+        </div>
+        <div class="empty" id="empty">没有匹配的元件，换个关键词试试。</div>
+        <div id="cats"></div>
+      </section>
+
+      <!-- ======== 速查表 ======== -->
+      <section id="cheatsheet">
+        <div class="sect-title"><div class="dot"></div><div><h2>速查表：从「理论系统」到「TPF 元件」</h2><div class="en">QUICK MAP · THEORY → COMPONENT</div></div></div>
+        <table class="tbl">
+          <tr><th style="width:34%">理论 / 需求（课时）</th><th style="width:38%">TPF 元件</th><th>所在分类</th></tr>
+          <tr><td>工质 R134a（课时 2）</td><td><code>two_phase_props</code> 两相流体属性</td><td class="c-teal">Fluids</td></tr>
+          <tr><td><b>压缩过程</b>（课时 2 · 重点）</td><td>容积式 / 离心式压缩机</td><td class="c-teal">Compressors</td></tr>
+          <tr><td><b>冷凝过程</b>（课时 2 · 重点）</td><td>冷凝器（壳管 / 板式）</td><td class="c-teal">Heat Exchangers</td></tr>
+          <tr><td><b>节流过程</b>（课时 2 · 重点）</td><td>热力 / 电子膨胀阀、毛细管</td><td class="c-teal">Control Valves</td></tr>
+          <tr><td><b>蒸发过程</b>（课时 2 · 重点）</td><td>蒸发器（冷风机 / 排管）</td><td class="c-teal">Heat Exchangers</td></tr>
+          <tr><td>连接管路</td><td>摩阻管路、弯头三通</td><td class="c-teal">Frictions &amp; Pipes</td></tr>
+          <tr><td>边界条件（课时 7-8）</td><td>流量源、压力源、焓 / 温度源</td><td class="c-teal">Sources</td></tr>
+          <tr><td>观测验证（课时 7-8）</td><td>温度 / 压力 / 流量传感器</td><td class="c-teal">Sensors</td></tr>
+        </table>
+        <div class="motto"><b>建议搭建顺序：</b>拖工质 → 放源 → 摆四大部件 → 连管路 → 加传感器，然后才是填参数、设边界。</div>
+      </section>
+
+      <!-- ======== 避坑指南 ======== -->
+      <section id="pitfalls">
+        <div class="sect-title"><div class="dot"></div><div><h2>新手上路：七个最常见的「踩坑点」</h2><div class="en">PITFALLS · 上机前必看</div></div></div>
+        <div class="pit"><h5><span class="num">1</span>忘记拖入流体属性元件</h5>
+          <div class="sym">症状：编译报 fluid properties 相关错误，模型根本跑不起来。</div>
+          <div class="sol"><b>对策：</b>任何 TPF 草图<u>第一步</u>先拖入 <b>Two-phase fluid properties</b> 并选 R134a。</div></div>
+        <div class="pit"><h5><span class="num">2</span>边界条件给得不够</h5>
+          <div class="sym">症状：求解器报欠定、奇异矩阵，或结果完全不合理。</div>
+          <div class="sol"><b>对策：</b>闭环至少留一个<b>压力锚点</b>＋一个流量或焓边界（呼应课时 2 三类边界条件）。</div></div>
+        <div class="pit"><h5><span class="num">3</span>单位制看走眼</h5>
+          <div class="sym">症状：结果差一个数量级，却查不出元件接错。</div>
+          <div class="sol"><b>对策：</b>Amesim 内部一律 SI；输入时认准 bar/MPa、℃/K、kg/s。</div></div>
+        <div class="pit"><h5><span class="num">4</span>端口方向与类型不匹配</h5>
+          <div class="sym">症状：流量出现负值、信号线接不上、结果怪异。</div>
+          <div class="sol"><b>对策：</b>源元件箭头<b>指向系统</b>，传感器串入测点；液压口与信号口不能互连。</div></div>
+        <div class="pit"><h5><span class="num">5</span>初始条件给得太离谱</h5>
+          <div class="sym">症状：启动段剧烈振荡甚至发散，误以为模型建错。</div>
+          <div class="sol"><b>对策：</b>初值贴近预期工况（冷库 25℃、预估蒸发压力）——只影响启动过渡段。</div></div>
+        <div class="pit"><h5><span class="num">6</span>状态点越界</h5>
+          <div class="sym">症状：物性查表失败，提示温度/压力无解。</div>
+          <div class="sol"><b>对策：</b>对照<b>五态图</b>确认该点落在合法区域，尤其当心跨过临界点。</div></div>
+        <div class="pit"><h5><span class="num">7</span>外部介质用错（船舶专属坑）</h5>
+          <div class="sym">症状：想建海水冷却冷凝器，却找不到对应接口。</div>
+          <div class="sol"><b>对策：</b>TPF 外部<b>只认空气</b>；海水侧需配合 Hydraulic / Thermal 等其他库。</div></div>
+        <div class="motto"><b>排错顺序口诀：</b>先看工质声明 → 再查边界锚点 → 核对单位 → 检查端口 → 最后才怀疑元件本身。<br>九成以上的「软件问题」，都出在前四步。</div>
+      </section>
+
+      <!-- ======== 小结 ======== -->
+      <section id="summary">
+        <div class="sect-title"><div class="dot"></div><div><h2>课时小结</h2><div class="en">SUMMARY</div></div></div>
+        <div class="blk" style="text-align:center;padding:34px">
+          <h4 style="justify-content:center">认全元件，模型就有了「零件库」</h4>
+          <p>七大分类口径、7 条理论假设、30+ 元件的图式与作用。</p>
+          <p style="margin-top:8px;color:var(--muted)">下一课，我们用「源与传感器」搭出第一个开环模型。</p>
+          <p style="margin-top:14px" class="tagline" style="border:none">整理：学生-叶禹辉</p>
+        </div>
+        <footer>
+          <p><b>Amesim 两相流库 · 元器件速查库</b>　整理者：学生-<b>叶禹辉</b>（学号 <b>2507303237</b>）</p>
+          <p style="margin-top:4px">厦门海洋职业技术学院 · 海洋工程学院 · 海洋工程装备技术专业</p>
+          <p style="margin-top:4px;font-size:12px">内容整理自《Simcenter Amesim 两相流库元件图鉴 · 课时七》· 海洋工程装备数字化</p>
+        </footer>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<button id="topBtn" title="回到顶部">↑</button>
+
+<script>
+/* ============ 元件数据（按 Amesim 2020.1 七大库类） ============ */
+const CATS = [
+  {
+    no:"01", en:"Sources, Sensors", zh:"源与传感器",
+    desc:"流体源头定义、节点与边界设定、传感器参数监测——为整个仿真提供核心介质输入、能量基准与数据支撑。课时 7-8 主角。",
+    items:[
+      {name:"两相流可调压力源", subs:["外部调制压力，比焓恒定"],
+        ports:"Port1：流体端口（两相工质，可流入/流出）；Port2：信号输入（实时调节压力）。",
+        points:"可外部信号调制压力、保持比焓恒定的两相流边界源。",
+        usage:"用作可调压力边界，模拟变工况开式边界。",
+        meta:"来源 slide8"},
+      {name:"恒定压力 + 恒定密度源", subs:["P-ρ 边界"],
+        ports:"单流体端口 port1，双向可流入、可流出；虚拟无限边界源，无实际容积，不储存工质质量。",
+        points:"用户给定固定压力 P 与密度 ρ，仿真全程保持不变；模型靠 P-ρ 物性对求解比焓、温度、干度等两相状态。",
+        usage:"定压定密度试验边界。",
+        meta:"来源 slide8"},
+      {name:"可变压力 + 恒定密度源", subs:["双信号调制"],
+        ports:"Port1：流体端口；Port2：信号输入 → 调制压力 P（Pa）；Port3：信号输入 → 调制密度 ρ（kg/m³）。",
+        points:"同时动态改变进口压力与进口密度。",
+        usage:"动态改变进口压力、密度的开式两相试验边界；模拟扰动工况；部件单独性能测试边界。",
+        meta:"来源 slide8"},
+      {name:"两相流压力-焓源", subs:["TPFCPHS0001"],
+        ports:"单流体端口 port1，相当于「无限大两相工质储罐」。",
+        points:"强制输出固定压力、固定比焓；无论流入流出，端口压力、比焓始终保持设定值；流入时介质被吸收进无限大储罐。",
+        usage:"回路进出口边界；单独测试膨胀阀、换热器（两端接 TPFCPHS0001 给定 P-h 边界）；代替外部无限大工质气源/冷媒源。",
+        meta:"来源 slide8"},
+      {name:"恒定质量流量、恒定比焓源", subs:["流量型源"],
+        ports:"Port1：流体端口，向外输出两相工质。",
+        points:"设置固定「质量流量」与「比焓」，仿真全程不变；压力由下游回路工况「反算决定」，是结果不是输入；虚拟源，无容积，只向外供给工质。",
+        usage:"开式回路定流量进口边界。",
+        meta:"来源 slide8"},
+      {name:"可变质量流量、恒定比焓源", subs:["双信号调制"],
+        ports:"Port1：流体端口（输出口）；Port2：信号输入 → 调制质量流量（kg/s）；Port3：信号输入 → 调制比焓（J/kg）。",
+        points:"质量流量与比焓均可由外部信号实时调制。",
+        usage:"变流量工况边界。",
+        meta:"来源 slide8"},
+      {name:"压力传感器（两端口）", subs:["P-T / P-h / P-x"],
+        ports:"Port1：流体端口接入两相管路；Port2、Port3：信号输出口。",
+        points:"输出组合可选：组合1 压力 P + 温度 T；组合2 压力 P + 比焓 h；组合3 压力 P + 干度 x（两相区非常实用）。",
+        usage:"实时监测系统压力/温度/焓/干度，供后处理与闭环控制。",
+        meta:"来源 slide9"},
+      {name:"流量传感器（两端口）", subs:["质量/体积/焓流量"],
+        ports:"Port1：流体端口接入两相管路；Port2、Port3：信号输出口。",
+        points:"测量两相回路质量流量、体积流量、焓流量；输出信号送入 PID、逻辑判断，用于闭环控制。",
+        usage:"制冷循环中监测循环冷媒质量流量。",
+        meta:"来源 slide9"},
+      {name:"热功率 / 能量传感器", subs:["TPFPOT0","TPFPOT1"],
+        ports:"Port1：流体端口接入两相管路；Port2、Port3：信号输出口。",
+        points:"核心测量焓流热功率 (P=m·h)，单位 W；也可输出累计能量、流量相关功量；自带 gain 增益、offset 偏移参数，可直接对输出信号缩放平移。TPFPOT1 在两相剧烈瞬变工况数值稳定性更好。",
+        usage:"观测循环冷/热量与能量统计。",
+        meta:"来源 slide9"},
+      {name:"热流传感器（换热器专用）", subs:["热端口采集"],
+        ports:"Port1：热端口（接换热器/热壁热交换接口，非流体管路端口）；Port2、Port3：信号输出口。",
+        points:"直接接换热器热端口，采集实际换热量 Q，观测蒸发器、冷凝器瞬时换热功率与累计换热量。",
+        usage:"输出热流量信号送示波器、后处理或控制逻辑。",
+        meta:"来源 slide9"},
+    ]
+  },
+  {
+    no:"02", en:"Fluids, Nodes, Volumes", zh:"工质 · 节点 · 容积",
+    desc:"制冷剂物性库、物性计算模块、汇阱与分流节点、各类容积腔与气液分离器——搭建仿真拓扑的基础工具集。",
+    items:[
+      {name:"制冷剂物性数据库", subs:["two_phase_props","TPF_FP01","TPF_FP02"],
+        ports:"常规制冷系统 → 选 TPF_FP01；自定义混合工质 → 选 TPF_FP02。",
+        points:"TPF_FP01 子模型 + R134a 制冷剂；提供物性数据支撑。",
+        usage:"任何 TPF 草图第一步：先拖入并选 R134a。",
+        meta:"来源 slide7"},
+      {name:"热力学状态转换器", subs:["输入任意两态","p,T","p,h","p,x"],
+        ports:"信号层纯计算模块。",
+        points:"输入任意两个状态参数（P、T、密度、h、s）自动计算其余参数。模式：Pressure and Temperature (p,T) 最通用；Pressure and Enthalpy (p,h) 制冷循环分析最常用；Pressure and Gas Mass Fraction (p,x) 专门用于分析两相区。",
+        usage:"两相物性换算。",
+        meta:"来源 slide7"},
+      {name:"两相流体物性计算专用模块", subs:["Acc 精度模块"],
+        ports:"信号层纯计算模块，无流量、无质量守恒，不是物理管路部件。",
+        points:"负责定义系统内所有两相流孔口/节流阀的流量计算算法；输入 2 个独立热力学状态量（P、T、ρ、x 等），额外输出两相专属参数：干度、饱和温度、饱和压力、汽化潜热等。",
+        usage:"两相区物性求解。",
+        meta:"来源 slide7"},
+      {name:"两相流三通节点", subs:["基准端口混合"],
+        ports:"3 个端口流体混合。",
+        points:"指定其中 1 个端口作为基准端口，节点压力、密度（工质物性）强制跟随该端口流体状态，另外两个端口向基准端口对齐求解。",
+        usage:"三通合流/分流拓扑节点。",
+        meta:"来源 slide7"},
+      {name:"两相流四通节点", subs:["基准端口混合"],
+        ports:"4 个端口。",
+        points:"选定一个基准端口，整个节点的压力、工质密度、两相物性全部由该基准端口决定，其余 3 个端口向基准端口做混合求解。",
+        usage:"四通合流/分流拓扑节点。",
+        meta:"来源 slide7"},
+      {name:"两相流汇阱", subs:["TPFSINK00"],
+        ports:"只有 1 个流体端口 port1，流体只能流入、不能流出。",
+        points:"吸收流入端口的两相流体，流入后直接消失，质量流量、焓流量置零。",
+        usage:"系统支路排出冷媒、开式回路末端吸掉多余工质、旁路支路出口接 TPFSINK00 代表该路直接排出系统。",
+        meta:"来源 slide7"},
+      {name:"绝热容积腔（两相混合腔）", subs:["Volume 参数"],
+        ports:"Port1、Port2：两相流体端口，进出口双向；腔内压力、温度、干度整体均匀混合。",
+        points:"核心参数：腔体容积 Volume。",
+        usage:"储液器腔体、过滤器内腔、阀腔、管路大容积接头、气分简化模型；主要关注容积蓄液/蓄气动态，忽略压降、不需换热；串联补偿腔体体积提升充注量精度。",
+        meta:"来源 slide15"},
+      {name:"带可调内部热源的绝热容积腔", subs:["信号热功率 (W)"],
+        ports:"Port1、Port2：两相流体端口（制冷剂进出口）；Port3：信号输入端口（输入热功率信号 W，正值加热、负值吸热）。",
+        points:"Port3 是信号端口而非热液压端口；腔体本体绝热，所有热量来自 Port3 输入。",
+        usage:"带电加热的储液器、气分腔体内部加热；压缩机壳体简化腔（输入损耗发热功率）；启停、变工况仿真。",
+        meta:"来源 slide15"},
+      {name:"带外部热功率输入换热容积腔", subs:["热端口换热"],
+        ports:"Port1、Port2：两相流体端口；Port3：热流输入端口（热库/热信号，正值加热、负值散热）。",
+        points:"Port3 是热端口（热液压端口），可接热库、热阻、热管路元件，区别于信号端口。",
+        usage:"带散热的储液器、气液分离器、压缩机简化壳体腔；腔体壁面接热对流热阻；接入完整热网络。",
+        meta:"来源 slide15"},
+      {name:"内外双热容积腔", subs:["Port3 热端口 + Port4 信号"],
+        ports:"Port1、Port2：两相流体端口；Port3：热端口（壳体壁面外部换热）；Port4：信号端口（内部热功率 W）。",
+        points:"同时具备外部换热 + 内部可调热功率。",
+        usage:"压缩机壳体简化腔模型首选：壳体对外散热（Port3 接环境热阻）+ 内部电机损耗发热（Port4 输入动态损耗功率）；变工况仿真。",
+        meta:"来源 slide15"},
+      {name:"分层两相容积腔（带液位）", subs:["液位输出"],
+        ports:"Port1、Port2：两相流体端口（进出口，安装高度决定接入气相区还是液相区）；Port3：热端口（壳体换热）。",
+        points:"重要参数：腔体总容积；端口 1、2 的安装高度（决定流出工质是液体还是气体）；液位高度可直接观测。",
+        usage:"气液分离器、储液器、集液器；液位满液/抽空/波动、启停气液交互；壳体同时散热/吸热。",
+        meta:"来源 slide16"},
+      {name:"温度分层式气液分离器（分相腔）", subs:["气液分相"],
+        ports:"Port1：两相入口；Port2：两相出口（管口高度决定从气相区还是液相区引出）；Port3：热端口。",
+        points:"关键参数：腔体总容积；管口安装高度；可输出液位高度、气相温度、液相温度三个观测变量。",
+        usage:"高精度仿真气液分离器、储液器；模拟气相过热、液相过冷及不完全热平衡动态。",
+        meta:"来源 slide16"},
+      {name:"内置管路结构气液分离器", subs:["TPFFS00","TPFFS01 (RCR)"],
+        ports:"Port1：两相入口；Port2：气相出口（上部气相区）；Port3：液相出口（下部液相区）。端口功能固定：1 进两相，2 必出气相，3 必出液相。",
+        points:"TPFFS00：气分流阻很小，关注分相、液位动态；TPFFS01：自带进出口流阻（RCR），工程仿真优先选用。",
+        usage:"两相从 Port1 进入，Port2 气相接压缩机回气，Port3 液相接节流部件——构建带气分的制冷循环。",
+        meta:"来源 slide16"},
+    ]
+  },
+  {
+    no:"03", en:"Frictions, Pipes, Control Valves", zh:"摩阻 · 管路 · 阀",
+    desc:"摩阻与局部阻力、绝热/换热管道、弯头、节流孔与止回阀——系统「血管」与「调节阀」，构建高效流体输送网络。",
+    items:[
+      {name:"两相管路摩擦阻力元件", subs:["TPFRFL001","IR 模型"],
+        ports:"Port1、Port2：两相流体端口，串联接入管路，流向可逆。",
+        points:"仅计算沿程摩擦压力损失，忽略流体惯性；无流体质量惯性，适合稳态、低速流动仿真，瞬态计算更快。IR 模型物理完备，瞬态两相循环推荐 IR 版本。",
+        usage:"管网沿程阻力建模。",
+        meta:"来源 slide11"},
+      {name:"两相节流孔板 / 节流元件", subs:["TPFGR00","TPFTR000"],
+        ports:"Port1、Port2：两相流体端口，串联接入管路，流向可逆。",
+        points:"TPFGR00：固定节流孔、短毛细管、管路局部节流（制冷系统固定节流机构）；TPFTR000：按实验数据拟合节流特性，自定义流量-压差关系。",
+        usage:"固定节流机构建模。",
+        meta:"来源 slide11"},
+      {name:"可调式节流孔（电子膨胀阀）", subs:["TPFMGR00","TPFMTR0"],
+        ports:"Port1、Port2：两相流体端口；Port3：控制信号输入（开度 x，0~1，0 全关 1 全开）。R 阻力模型，不考虑节流腔流体惯性。",
+        points:"TPFMGR00：电子膨胀阀简化模型，开度由 PID/外部信号实时调节；TPFMTR0：拥有阀实验数据，二维表格拟合真实阀流量特性。",
+        usage:"电子膨胀阀、可调节流建模。",
+        meta:"来源 slide11"},
+      {name:"突扩-突缩局部阻力元件", subs:["局部阻力"],
+        ports:"Port1、Port2：两相流体端口，流向可逆。",
+        points:"管路接头、变径管段局部压力损失；换热器集管、进出流口截面突变的局部阻力。",
+        usage:"与沿程摩擦 tpf_regular_friction 搭配，完整还原管网总压降。",
+        meta:"来源 slide11"},
+      {name:"渐扩-渐缩锥形变径管", subs:["锥形过渡"],
+        ports:"Port1、Port2：两相流体端口，流向可逆。",
+        points:"锥形过渡接头、平滑变径管路；喷嘴、扩散器、换热器进出口平滑过渡段局部损失。",
+        usage:"与突扩突缩、沿程摩擦共同构建完整管网阻力模型。",
+        meta:"来源 slide11"},
+      {name:"管道入口 / 出口局部阻力元件", subs:["入口损失/出口损失"],
+        ports:"Port1、Port2：两相流体端口，串联接入管路。",
+        points:"内置标准入口/出口阻力系数，无需手动输入；根据流向自动切换入口/出口损失模式。流向：由大腔室进入为入口，由元件流出到大腔室为出口。",
+        usage:"储液器、气液分离器、容器接管的进出口局部压降；补齐容器-管道接口处局部损失。",
+        meta:"来源 slide11"},
+      {name:"绝热两相管道（容积 + 摩擦组合）", subs:["TPFP000","TPFP001","TPFP002","TPFP003","TPFP004"],
+        ports:"Port1、Port2：两相流体端口，串联接入管路；绝热，无热端口。",
+        points:"Capacity (C) 容积腔：质量蓄存、压力焓可随时间变化；Regular friction (R) 沿程摩擦；adiabatic 与外界无热量交换。",
+        extra:"<table><tr><th>子模型</th><th>构成</th><th>说明</th></tr><tr><td>TPFP000</td><td>C</td><td>仅容积腔，理想绝热短管</td></tr><tr><td>TPFP001</td><td>C-R</td><td>进口容积+沿程摩擦</td></tr><tr><td>TPFP002</td><td>R-C</td><td>沿程摩擦+出口容积</td></tr><tr><td>TPFP003</td><td>C-R-C</td><td>两端容积中间摩擦，常用长管道</td></tr><tr><td>TPFP004</td><td>R-C-R</td><td>两端摩擦中间容积腔</td></tr></table>",
+        usage:"TPFP000：很短连接管忽略压降；TPFP003：制冷系统铜管、较长管路，两相回路最常用绝热管道。",
+        meta:"来源 slide12"},
+      {name:"带换热两相管道（非绝热管）", subs:["TPFPHE000","TPFPHE001","TPFPHE002","TPFPHE003","TPFPHE004"],
+        ports:"Port1、Port2：两相流体端口；Port3：热端口（连接热源/热阻，实现管壁换热）。",
+        points:"tpf_pipe 为绝热版本无热端口；tpf_pipe_heat_extra 带热端口 Port3，可吸热散热。",
+        extra:"<table><tr><th>子模型</th><th>构成</th><th>说明</th></tr><tr><td>TPFPHE000</td><td>C-R</td><td>先容积腔后摩擦，支持换热</td></tr><tr><td>TPFPHE001</td><td>R-C</td><td>先摩擦后容积腔</td></tr><tr><td>TPFPHE002</td><td>C-R-C</td><td>两相管路最常用，带换热</td></tr><tr><td>TPFPHE003</td><td>R-C-R</td><td>两端摩擦中间容积</td></tr><tr><td>TPFPHE004</td><td>C</td><td>仅容积腔无摩擦，仅换热</td></tr></table>",
+        usage:"制冷系统中需要换热的铜管，蒸发器/冷凝器单根管路、回气管吸热、排气管散热——两相仿真首选 TPFPHE002。",
+        meta:"来源 slide12"},
+      {name:"双热端口换热两相管道", subs:["TPFCVINT03"],
+        ports:"Port1、Port2：两相流体端口；Port3、Port4：两个热端口（一次侧、二次侧热流体接口）。",
+        points:"实现两股流体之间热量传递，可模拟管-管换热器。对比：tpf_pipe 无热端口；tpf_pipe_heat_extra 单热端口（与固定温度热源/环境换热）；tpf_pipe_heat_2ports 双热端口（两股流体互相换热）。",
+        usage:"套管式换热器、回热器（气回热）、管-管冷热流体换热仿真；制冷剂走 1-2 端口，另一流体接 3-4 热端口；构建简易回热器实现过冷/过热回热。",
+        meta:"来源 slide13"},
+      {name:"绝热弯管局部阻力元件", subs:["TPFB000","TPFB004"],
+        ports:"Port1、Port2：两相流体端口，流向可逆。",
+        points:"输入弯曲角度 α、弯管曲率半径/管径比，内部自动计算弯头局部阻力系数。TPFB000 (R)：只需核算弯头局部压降，绝大多数仿真选用；TPFB004 (C-R-C)：弯头腔体容积不可忽略时，捕捉内部充注动态。",
+        usage:"管路弯头、90° 弯管、U 型弯。",
+        meta:"来源 slide13"},
+      {name:"带换热弯管（非绝热弯头）", subs:["Port3 热端口"],
+        ports:"Port1、Port2：两相流体端口；Port3：热端口（弯头管壁可吸热散热）。",
+        points:"参数同绝热弯管：弯曲角度 α、曲率半径/管径比，内部自动计算阻力系数，流向可逆。",
+        usage:"需要换热的弯管段。",
+        meta:"来源 slide13"},
+      {name:"两相止回阀（单向阀）", subs:["TPFCV010","TPFCV012"],
+        ports:"Port1：入口；Port2：出口；正向 1→2 通流，2→1 反向截止。",
+        points:"设置开启压差 cracking pressure：正向压差大于开启压差才打开；反向强制关闭，流量≈0，可设微小泄漏量。",
+        usage:"TPFCV010：制冷回路单向阀防停机倒流，绝大多数工况优先；TPFCV012：模拟阀芯机械限位、最大升程限制，流量存在饱和上限。",
+        meta:"来源 slide13"},
+      {name:"带弹簧两相止回阀", subs:["弹簧刚度","最大升程"],
+        ports:"Port1：入口；Port2：出口；正向 1→2 通流，反向截止。",
+        points:"Cracking pressure 开启压差（弹簧预紧力对应）；Spring stiffness 弹簧刚度（决定压差-阀芯升程关系）；Maximum lift 最大升程（TPFCV012 生效，流量饱和）；反向泄漏量可设。",
+        usage:"TPFCV012：制冷系统弹簧式单向阀（停机防倒流、存在阀芯机械限位的真实器件）优先；TPFCV010：只需简单单向通断逻辑。",
+        meta:"来源 slide13"},
+    ]
+  },
+  {
+    no:"04", en:"Compressors, Turbine and Pump", zh:"压缩机 · 透平 · 泵",
+    desc:"定/变排量压缩机、透平膨胀机、离心压缩机与各类液体泵——系统的「动力心脏」与「动力枢纽」，直接决定运行效率、能耗与稳定性。",
+    items:[
+      {name:"两相库压缩机（变转速、定排量）", subs:["TPFPUCOMP00","tpf_compressor"],
+        ports:"Port1：吸气入口（两相流体端口）；Port2：排气出口（两相流体端口）；Port3：信号输入（转速 r/min）。",
+        points:"重要参数：理论排量 displacement；容积效率表（转速、压比→效率）；等熵效率表；泄漏系数。工作逻辑：按吸气状态、转速、压比得实际吸气质量流量，经等熵效率计算排气焓升，输出高温高压制冷剂。",
+        usage:"制冷循环容积式压缩机仿真（转子、涡旋、往复）；液态制冷剂泵（只输送液体）；变转速仿真——Port3 接转速信号模拟变频压缩机。",
+        meta:"来源 slide17"},
+      {name:"两相库压缩机（变转速、变排量）", subs:["双调节"],
+        ports:"Port1：吸气入口；Port2：排气出口；Port3：转速信号 (r/min)；Port4：排量比例信号 (0-1，0 最小排量，1 满理论排量)。",
+        points:"最大理论排量 displacement；容积效率 map（转速、压比）；等熵效率 map；泄漏系数。",
+        usage:"变排量压缩机仿真：斜盘式汽车压缩机、数码涡旋压缩机；转速不变靠改变排量调节制冷能力；支持转速+排量耦合变工况。",
+        meta:"来源 slide17"},
+      {name:"两相透平（膨胀机）", subs:["TPFTB00","TPFTB20"],
+        ports:"Port1：入口（高压工质流入）；Port2：出口（膨胀后低压工质流出）；Port3：信号输出（实际输出轴功率 W）。",
+        points:"TPFTB00：等熵效率；TPFTB20：Stodola 通流系数；泄漏系数。物理逻辑：高压工质膨胀降压，焓降转化为轴功由 Port3 输出；对比节流阀，膨胀机回收膨胀功、减少不可逆损失。",
+        usage:"制冷循环膨胀机替代节流阀仿真能量回收；两相 ORC 有机朗肯循环透平；两相做功膨胀部件动态仿真。",
+        meta:"来源 slide17"},
+      {name:"查表型透平膨胀机", subs:["转速信号"],
+        ports:"Port1：流体入口（高压工质进入）；Port2：流体出口（膨胀后工质流出）；Port3：信号输入（转速 r/min）。",
+        points:"透平转速信号驱动，刻画转速-效率-流量特性。",
+        usage:"ORC 有机朗肯循环变转速向心透平；膨胀机转速动态变化工况。",
+        meta:"来源 slide17"},
+      {name:"离心式压缩机（两相库）", subs:["TPFPUCOMP11","tpf_centrif_comp"],
+        ports:"Port1：吸气入口（气态工质）；Port2：排气出口；Port3：信号输入（转速 r/min）。",
+        points:"额定转速；map 数据表（不同转速下质量流量-压比、质量流量-等熵效率）；喘振边界曲线（判断喘振工况）。",
+        usage:"大型制冷离心压缩机、燃气离心压缩；正常工作区、接近喘振、堵塞工况动态；变转速离心压缩系统瞬态仿真。",
+        meta:"来源 slide18"},
+      {name:"带 IGV 进口导叶离心压缩机", subs:["TPFPUCOMP12"],
+        ports:"Port1：吸气入口（气态工质）；Port2：排气出口；Port3：转速信号 (r/min)；Port4：IGV 导叶角度信号（0° 全关，最大角全开）。",
+        points:"额定转速；三维 map（转速、IGV 角度、质量流量 → 压比、等熵效率）；不同 IGV 角度下的喘振边界。对比：TPFPUCOMP11 仅转速调节；TPFPUCOMP12 转速+IGV 双调节，转速不变时调节导叶改变预旋、调节流量-压比特性。",
+        usage:"中央空调大型离心冷水机组压缩机；转速不变靠 IGV 做负荷调节；转速-IGV 耦合变工况；研究喘振、稳定工作边界。",
+        meta:"来源 slide18"},
+      {name:"两相库容积式液体泵", subs:["变频泵"],
+        ports:"Port1：泵吸入口（必须供给液态工质）；Port2：泵排出口（加压后液态工质流出）；Port3：信号输入（转速 r/min）。",
+        points:"理论排量 displacement；容积效率 map（转速、压比）；水力效率 map；泄漏系数。",
+        usage:"液态制冷剂增压泵、CO₂ 泵、有机工质泵；泵驱动制冷循环、ORC 循环工质输送；变频泵变流量仿真。",
+        meta:"来源 slide19"},
+      {name:"可变排量容积式液体泵", subs:["双调节"],
+        ports:"Port1：泵吸入口（纯液态）；Port2：泵排出口；Port3：转速信号；Port4：排量比例信号 (0-1)。",
+        points:"最大理论排量 displacement；容积效率 map；水力效率 map；泄漏系数。",
+        usage:"可变排量制冷剂泵、有机工质泵；转速恒定靠改变排量调节循环流量；转速-排量耦合变工况。",
+        meta:"来源 slide19"},
+      {name:"Suter 曲线离心泵模型", subs:["LPPUMP10"],
+        ports:"Port1：泵吸入口（液态）；Port2：泵排出口；Port3：信号输入（转速 r/min）。",
+        points:"泵名义叶轮直径；Suter 无量纲曲线（WH 扬程曲线、WB 扭矩曲线）；额定转速。完整四象限模型。",
+        usage:"制冷剂离心泵、工质离心输送泵；启停、断电惰转、倒流、反转水轮机工况；离心泵系统瞬态冲击动态仿真。",
+        meta:"来源 slide19"},
+      {name:"两相库离心泵", subs:["TPFPUCOMP10","TPFPUCOMP13"],
+        ports:"Port1：泵吸入口（液态）；Port2：泵排出口；Port3：信号输入（转速 r/min）。",
+        points:"额定转速；多组 map（扬程-质量流量、效率-质量流量，不同转速）；TPFPUCOMP13 额外配置停机状态等效孔口流通面积。对比 LPPUMP10：Suter 曲线四象限参数复杂；TPFPUCOMP10/13 单象限只模拟正向做功，参数简单（输入扬程-流量 map），工程制冷循环更常用。",
+        usage:"TPFPUCOMP10：常规启停循环；TPFPUCOMP13：仿真泵停机后流体倒流、惰转瞬态。",
+        meta:"来源 slide19"},
+    ]
+  },
+  {
+    no:"05", en:"Heat Exchangers", zh:"换热器",
+    desc:"制冷剂与外部流体（如湿空气）热量交换的核心载体——决定系统的能效表现。快速搭建蒸发器、冷凝器简化模型。",
+    items:[
+      {name:"两相简易半换热器", subs:["单侧流体+外部热边界"],
+        ports:"Port1：两相流体进口；Port2：两相流体出口；Port3：热边界信号输入（可输入壁面温度，也可输入热流密度）。",
+        points:"冷却水/空气侧不用流体回路，直接给温度信号。",
+        usage:"快速搭建蒸发器、冷凝器简化模型；循环系统整机仿真降低模型规模；研究两相工质沿程相变、压力损失。",
+        meta:"来源 slide25"},
+      {name:"效能-NTU 法简易换热器", subs:["THPHI011","heaterflux3"],
+        ports:"Port1：流体入口热端口（温度）；Port2：流体出口热端口（温度）；Port3：外部流体/壁面参考温度信号输入。",
+        points:"效能 ε 可固定常数，也可设为质量流量的查表函数；只做热计算，没有流体水力回路，不计算压降、质量流量。",
+        usage:"系统级简化热仿真；蒸发器、冷凝器简化热边界；不希望增加流体控制容积时。",
+        meta:"来源 slide25"},
+      {name:"简易换热器热计算模块", subs:["THPHISIMPxx","heaterflux4"],
+        ports:"Port1：流体入口热端口（温度信号）；Port2：流体出口热端口（温度信号）。",
+        points:"两侧温度均来自热端口，KA / NTU 模式。两相库已建好流体管路、不希望额外增加流体控制容积时，把进出口温度信号接到本元件做换热功率后处理/热边界计算。",
+        usage:"系统级循环仿真，轻量化蒸发器、冷凝器热计算；THPHIREG01 用实验数据拟合换热器 NTU 模型。",
+        meta:"来源 slide25"},
+      {name:"信号可控热流计算模块", subs:["THPHI021","heaterflux_piloted"],
+        ports:"Port1：流体入口热端口（温度信号）；Port2：流体出口热端口（温度信号）。",
+        points:"多模式可切换：支持温度边界、热流输入、焓差三种计算逻辑，适合仿真过程中热边界发生切换的工况。",
+        usage:"为两相库换热器提供灵活可变热边界；仿真过程切换加热/冷却模式；实验数据驱动仿真（直接输入实测热流信号）；系统级简化模型不增加两相流体控制容积。",
+        meta:"来源 slide25"},
+    ]
+  },
+  {
+    no:"06", en:"Moist Air", zh:"湿空气",
+    desc:"专为处理空气与水蒸气的混合介质特性设计——物性定义、节点与传感器、热湿交换、流量换算，暖通空调系统仿真的核心基石。",
+    items:[
+      {name:"湿空气源", subs:["THMAS00"],
+        ports:"端口1：湿空气流体端口；端口2-5：信号输入（温度℃、压力 barA、湿度 %/g/kg、质量流量 kg/s）。",
+        points:"0 维边界源，自身不计算压降；空气质量流量完全由端口 5 信号强制给定。端口 2-5 全部是信号端口，只能接信号源，不能接流体管路。输出热库格式湿空气，只能连接热库换热器端口，不能直接接 MA/GM 库元件。输入超限自动钳位，仿真不报错但结果异常，建议监控输入。",
+        usage:"冷凝器、蒸发器的空气侧边界条件。制冷剂侧走 TPF 两相库，空气侧用本元件提供环境湿空气。",
+        meta:"来源 slide21"},
+      {name:"稳态湿空气源", subs:["只适合稳态"],
+        ports:"Port1 直接连接热库换热器的湿空气入口端口（不能接两相制冷剂管路、不能接 MA/GM 库元件）。",
+        points:"模型内部 0 维，不计算空气侧管路压降；输入参数有范围校验（温度＞-273.15℃、压力＞0 barA、质量流量≥0），超限自动钳位。",
+        usage:"如果需要温度、湿度、流量随时间变化，必须改用 THMAS00。",
+        meta:"来源 slide21"},
+      {name:"湿空气汇 / 出口边界", subs:["类比 TPFSINK000"],
+        ports:"Port1：湿空气流体输入端口；只有 1 个流体端口，无信号端口。",
+        points:"湿空气回路出口边界，接收从换热器流出的湿空气，吸收全部来流，不对流动施加约束；不引入压降，不改变湿空气状态参数。",
+        usage:"换热器流出湿空气直接「排出系统」，不保留、不反馈压力/状态回上游。",
+        meta:"来源 slide21"},
+      {name:"湿空气分流器", subs:["分流比例信号"],
+        ports:"端口1：总入口；端口2、3：分流出口；端口4：信号输入（分流比例 0~1）。",
+        points:"入口 1 流入的湿空气按端口 4 比例分成两股：0 全部走端口 3、1 全部走端口 2、0.4 即 40% 从 2 流出 60% 从 3 流出。两股出口气流温度、压力、湿度与入口完全一致，只是质量流量拆分；元件本身无压降，不发热质交换。",
+        usage:"按比例分配风量。",
+        meta:"来源 slide21"},
+      {name:"湿空气动态分流器", subs:["动态分流"],
+        ports:"端口1：总入口；端口2：分流出口。",
+        points:"按信号动态分配湿空气流量。",
+        usage:"动态风量分配场景。",
+        meta:"来源 slide22"},
+      {name:"湿空气汇合器 / 混合器", subs:["THMAMX000"],
+        ports:"端口1：混合出口；端口2、3：入口流道 1、2。",
+        points:"THMAMX000 moist air mixer：2 进 1 出，3 个流体端口；0 维无容积，瞬时混合，无质量蓄存、无动态滞后。",
+        usage:"适合稳态、快速动态仿真，风道体积可以忽略不计。",
+        meta:"来源 slide22"},
+      {name:"湿空气动态混合器", subs:["THMADYNMX0"],
+        ports:"端口1：混合出口；端口2：混合入口。",
+        points:"动态混合器：1 进 1 出，2 个流体端口；内部集成集中参数容积腔，存在蓄热、蓄湿动态效应；流量分配不是人为给定，依靠回路压差与腔室静压自动求解；腔室状态随时间变化，模拟风箱、混合静压箱，温湿度变化存在时间滞后。",
+        usage:"模拟真实混合静压箱、风道腔体，需要考虑空气质量蓄存、温湿度响应滞后；风道压力波动工况。",
+        meta:"来源 slide22"},
+      {name:"湿空气复制器（端口 3 定流量）", subs:["固定抽取流量"],
+        ports:"端口1：主入口；端口2：主出口（复制入口 1 的全部状态）；端口3：固定抽取流量支路出口。",
+        points:"端口 2 输出与入口 1 完全相同温湿度压力的气流；端口 3 强制分出一个固定质量流量（参数面板直接设定，不是外部信号，不随压差变化）；端口 2 实际流量 = 入口 1 总流量 − 端口 3 抽取流量。若入口流量小于抽取流量会报错。",
+        usage:"需要恒定旁路抽取风量的回路。",
+        meta:"来源 slide22"},
+      {name:"面通量 → 总质量流量转换元件", subs:["G → m"],
+        ports:"端口1：出口（输出相同状态湿空气，总流量经换算）；端口2：入口（提供温度、压力、含湿量）。",
+        points:"文献/实验给出面通量 G，模型回路需要总质量流量 m 时的换算模块；G 可接 1D-table 信号，通量随时间变化，总流量随之动态变化。",
+        usage:"风机、换热器仿真；多孔介质、填料层已知单位面积风量换算成回路总流量。",
+        meta:"来源 slide22"},
+      {name:"湿空气-壁面对流换热元件", subs:["支持/不支持翅片","0001 带 j 因子"],
+        ports:"端口1：湿空气入口；端口2：湿空气出口；端口3：热端口（固体壁面侧）；端口4：可选外部信号输入（换热系数、j 因子等，0001 版本可用）。",
+        points:"湿空气从 1→2 流过元件，与端口 3 固体壁面热交换：壁温＞露点只发生显热换热（温度变、含湿量不变）；壁温＜露点水蒸气冷凝，显热+潜热同时交换，出口含湿量减小。",
+        usage:"表冷器、蒸发器、冷却盘管仿真（空气降温、结露除湿）；翅片换热器空气侧建模。",
+        meta:"来源 slide23"},
+      {name:"带热流输入的湿空气容积腔", subs:["热惯性/湿度惯性"],
+        ports:"端口1：湿空气流入入口；端口2：混合后流出出口；端口3：热端口（向腔体输入/导出热量，只传热能，不流通湿空气）。",
+        points:"模拟风道静压箱、混合箱、较大体积风管、舱室空间；考虑空气热惯性、湿度惯性的动态仿真。",
+        usage:"空调风道中间缓冲腔体、风机前后大空间腔体建模。",
+        meta:"来源 slide23"},
+      {name:"湿空气通用物性传感器", subs:["多物性输出"],
+        ports:"端口1：湿空气流入入口；端口2：湿空气流出出口；端口3：信号输出（各类物性）。",
+        points:"输出温度、压力、含湿量、相对湿度、露点温度、焓值、水蒸气分压等常用物性。",
+        usage:"仿真后处理观测风道内部湿空气状态；取信号供给控制器、其他子模型；实验对标仿真。",
+        meta:"来源 slide23"},
+      {name:"湿空气流量传感器", subs:["流量输出"],
+        ports:"端口1：流入入口；端口2：流出出口；端口3：信号输出（流量类信号）。",
+        points:"监测风道回路内部湿空气流量变化。",
+        usage:"流量信号引出供给控制器或后处理；对标实验数据提取流量测点。",
+        meta:"来源 slide23"},
+      {name:"湿空气功率-能量传感器", subs:["显热/潜热/总热负荷"],
+        ports:"端口1：流入入口；端口2：流出出口；端口3：信号输出（功率、能量类信号）。",
+        points:"采集风道、换热器湿空气侧换热量，获取显热、潜热、总热负荷；统计累计换热能量用于能耗统计；可模拟实际传感器测量偏差做标定修正。",
+        usage:"热功率信号引出供控制器或后处理绘图对比实验数据。",
+        meta:"来源 slide23"},
+    ]
+  },
+  {
+    no:"07", en:"Component Design", zh:"元件设计",
+    desc:"非标准元件的「设计工具」——从「选元件」到「造元件」。当标准元件的集总参数描述不够用、需要匹配实船结构图纸时使用（进阶内容）。",
+    items:[
+      {name:"偏心可变间隙泄漏模型", subs:["TPFBAF01","TPFBAF02","活塞环/轴封"],
+        ports:"Port1：高压侧流体端口（两相）；Port2：低压侧流体端口（两相）；Port3：位移/速度信号输入（TPFBAF01 速度输入在 Port3）；Port4：位移/速度信号输入（TPFBAF02 速度输入在 Port4）。",
+        points:"活塞环/轴封类间隙泄漏模型，瞬态运动下间隙泄漏-摩擦耦合计算。",
+        usage:"容积式压缩机活塞、滑片间隙泄漏；膨胀机、泵轴封间隙泄漏仿真。",
+        meta:"来源 slide26"},
+      {name:"两相活塞容积腔（可变容积气缸）", subs:["tpf_bap2"],
+        ports:"Port1：两相流体端口（气缸腔流体接口）；Port2/Port3：活塞运动速度信号输入。",
+        points:"输入活塞速度 → 更新气缸瞬时容积，结合 Port1 流体交换求解可变容积腔两相热力学状态（压力、质量、焓、干度）；本身不自带进排气阀，阀需外部搭接。关键参数：气缸横截面积、活塞行程、死容积（余隙容积）。",
+        usage:"自建往复式压缩机气缸（活塞腔，外部搭配吸排气阀、间隙泄漏元件）；往复式两相泵缸体仿真。",
+        meta:"来源 slide26"},
+      {name:"两相库球型提升阀（球阀/锥阀）", subs:["吸排气球阀"],
+        ports:"Port1：上游两相流体端口；Port2：下游两相流体端口；Port3/Port4：阀芯运动速度信号输入。",
+        points:"往复压缩机吸排气球阀；可控两相球阀、锥阀瞬态仿真。",
+        usage:"搭配两相活塞腔 tpf_bap2 搭建完整往复气缸；阀启闭冲击、回流泄漏动态模拟。",
+        meta:"来源 slide26"},
+      {name:"锥面阀座球提升阀（两相）", subs:["锥阀"],
+        ports:"两相流体端口 + 阀芯速度信号。",
+        points:"锥面阀座结构的球提升阀，用于压缩机吸排气阀精细建模。",
+        usage:"往复压缩机气阀建模。",
+        meta:"来源 slide26"},
+      {name:"带囊腔容积的盲孔式喷射喷嘴（两相）", subs:["盲孔喷射"],
+        ports:"两相流体端口。",
+        points:"带囊腔容积的盲孔式喷射喷嘴，用于喷射/节流喷嘴类精细建模。",
+        usage:"喷嘴喷射部件建模。",
+        meta:"来源 slide26"},
+      {name:"两相挡板喷嘴阀", subs:["Flapper-Nozzle"],
+        ports:"两相流体端口 + 信号。",
+        points:"Flapper-Nozzle 喷嘴挡板阀，伺服/先导控制精细建模。",
+        usage:"先导控制阀、伺服机构建模。",
+        meta:"来源 slide26"},
+      {name:"变容积两相腔室", subs:["变容积"],
+        ports:"两相流体端口 + 运动信号。",
+        points:"容积随时间变化的变容积两相腔室。",
+        usage:"压缩机气缸、泵腔动态建模。",
+        meta:"来源 slide26"},
+      {name:"带外部热流输入的变容积两相腔室", subs:["变容积+热流"],
+        ports:"两相流体端口 + 运动信号 + 热流输入。",
+        points:"变容积同时带外部热流输入的腔室，兼顾压缩做功与换热。",
+        usage:"考虑壳体换热的压缩机腔体建模。",
+        meta:"来源 slide26"},
+      {name:"换热器设计工具（几何建模）", subs:["进阶工具"],
+        ports:"设计/几何输入。",
+        points:"输入换热器的几何尺寸（管径、翅片、盘管走向）与工况，自动生成精细的换热器仿真模型。",
+        usage:"标准元件集总参数不够用、需要匹配实船换热器结构图纸时——例如冷凝器盘管优化、翅片布置对比。先用好标准元件搭出完整系统，再进入元件设计做精细优化：先「会用」，再「会造」。",
+        meta:"来源 slide27"},
+    ]
+  }
+];
+
+/* ============ 元件图标（按分类与元件顺序一一对应，取自 PPT 截图） ============ */
+const IMGS = [
+  ["image24.png","image25.png","image26.png","image27.png","image28.png","image29.png","image30.png","image31.png","image32.png","image33.png"],
+  ["image17.png","image18.png","image19.png","image20.png","image21.png","image22.png","image53.png","image54.png","image55.png","image56.png","image57.png","image58.png","image59.png"],
+  ["image37.png","image38.png","image39.png","image40.png","image41.png","image42.png","image43.png","image44.png","image45.png","image46.png","image47.png","image48.png","image49.png"],
+  ["image60.png","image61.png","image62.png","image63.png","image64.png","image65.png","image66.png","image67.png","image68.png","image69.png"],
+  ["image96.png","image97.png","image98.png","image99.png"],
+  ["image77.png","image78.png","image79.png","image80.png","image81.png","image82.png","image83.png","image84.png","image85.png","image88.png","image89.png","image90.png","image91.png","image92.png"],
+  ["image101.png","image102.png","image103.png","image104.png","image105.png","image106.png","image107.png","image108.png","image109.png"]
+];
+
+/* ============ 渲染 ============ */
+const catsWrap = document.getElementById("cats");
+const chipsWrap = document.getElementById("chips");
+const searchInput = document.getElementById("search");
+const resultInfo = document.getElementById("resultInfo");
+const empty = document.getElementById("empty");
+let catFilter = 0; // 0 = all
+let q = "";
+
+function esc(s){return s.replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});}
+
+function renderCats(){
+  catsWrap.innerHTML = CATS.map(function(c,i){
+    const cards = c.items.map(function(it,idx){
+      const img = (IMGS[i] && IMGS[i][idx]) ? IMGS[i][idx] : "";
+      const text = (it.name + " " + (it.subs||[]).join(" ") + " " + (it.ports||"") + " " + (it.points||"") + " " + (it.usage||"")).toLowerCase();
+      const hit = !q || text.indexOf(q) > -1;
+      return '<div class="card" data-cat="'+i+'" '+(hit?"":'style="display:none"')+'>'
+        + (img ? '<div class="cimg"><img src="img/'+img+'" alt="'+esc(it.name)+'" loading="lazy"></div>' : "")
+        + '<h5>'+esc(it.name)+'<small>'+esc(it.meta)+'</small></h5>'
+        + '<div class="subs">'+(it.subs||[]).map(function(s){return '<i>'+esc(s)+'</i>';}).join("")+'</div>'
+        + (it.ports ? '<div class="sec">端口说明</div><div class="cnt">'+esc(it.ports)+'</div>' : "")
+        + (it.points ? '<div class="sec">要点</div><div class="cnt">'+esc(it.points)+'</div>' : "")
+        + (it.extra ? '<div class="cnt">'+it.extra+'</div>' : "")
+        + (it.usage ? '<div class="usage"><b>使用场景</b>　'+esc(it.usage)+'</div>' : "")
+        + '<div class="foot">分类 '+esc(c.en)+' · 第 '+(idx+1)+' 个</div>'
+        + '</div>';
+    }).join("");
+    return '<div class="cat-block" data-block="'+i+'">'
+      + '<div class="cat-head"><div class="no">'+c.no+'</div>'
+      + '<div class="names"><h3>'+esc(c.en)+'</h3><p>'+esc(c.zh)+' · '+c.items.length+' 个元件</p></div>'
+      + '<div class="desc">'+esc(c.desc)+'</div></div>'
+      + '<div class="cards">'+cards+'</div></div>';
+  }).join("");
+}
+
+function renderChips(){
+  let html = '<span class="chip'+(catFilter===0?" on":"")+'" data-cat="0">全部</span>';
+  CATS.forEach(function(c,i){
+    html += '<span class="chip'+(catFilter===i+1?" on":"")+'" data-cat="'+(i+1)+'">'+c.no+' '+esc(c.zh)+'</span>';
+  });
+  chipsWrap.innerHTML = html;
+  Array.prototype.forEach.call(chipsWrap.querySelectorAll(".chip"),function(ch){
+    ch.onclick = function(){
+      catFilter = parseInt(ch.dataset.cat,10);
+      renderChips(); applyFilter();
+    };
+  });
+}
+
+function applyFilter(){
+  let visible = 0;
+  Array.prototype.forEach.call(document.querySelectorAll(".cat-block"),function(blk){
+    let catShow = catFilter === 0 || parseInt(blk.dataset.block,10) === catFilter - 1;
+    let any = false;
+    Array.prototype.forEach.call(blk.querySelectorAll(".card"),function(card){
+      const text = (card.textContent||"").toLowerCase();
+      const hit = !q || text.indexOf(q) > -1;
+      card.style.display = hit ? "" : "none";
+      if(hit) any = true;
+    });
+    blk.style.display = (catShow && any) ? "" : "none";
+    if(catShow && any) visible += blk.querySelectorAll(".card:not([style*='display: none'])").length;
+  });
+  empty.style.display = visible ? "none" : "block";
+  resultInfo.innerHTML = q || catFilter
+    ? '共 <b>'+visible+'</b> 个元件匹配' + (catFilter ? '（分类：'+esc(CATS[catFilter-1].zh)+'）' : '') + (q ? '，关键词「'+esc(q)+'」' : '')
+    : '共 <b>'+visible+'</b> 个元件 · 点击分类标签可筛选';
+}
+
+renderCats();
+renderChips();
+applyFilter();
+
+searchInput.addEventListener("input",function(){
+  q = searchInput.value.trim().toLowerCase();
+  applyFilter();
+});
+
+/* 侧栏高亮 + 回到顶部 */
+const sideLinks = document.querySelectorAll(".side a");
+function onScroll(){
+  const y = window.scrollY + 90;
+  let cur = "cover";
+  sideLinks.forEach(function(a){
+    const id = a.getAttribute("href").slice(1);
+    const el = document.getElementById(id);
+    if(el && el.offsetTop <= y) cur = id;
+  });
+  sideLinks.forEach(function(a){
+    a.classList.toggle("active", a.getAttribute("href") === "#"+cur);
+  });
+  document.getElementById("topBtn").style.display = window.scrollY > 600 ? "block" : "none";
+}
+window.addEventListener("scroll", onScroll);
+document.getElementById("topBtn").onclick = function(){window.scrollTo({top:0,behavior:"smooth"});};
+onScroll();
+</script>
+</body>
+</html>
